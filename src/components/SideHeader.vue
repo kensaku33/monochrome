@@ -38,6 +38,9 @@ export default {
 
 
 <style scoped>
+#side-header{
+  display: none;
+}
   li{
     list-style: none;
   }
