@@ -16,9 +16,9 @@
           <li class="list">skills</li>
           <li class="list">contact</li>
           <ul id="social" v-bind:class='{active:isActive}'>
-            <li class="sns"><i class="fab fa-twitter"></i></li>
-            <li class="sns"><i class="fab fa-facebook"></i></li>
-            <li class="sns"><i class="fab fa-instagram"></i></li>
+            <li class="sns"><a :href="twitter"><i class="fab fa-twitter"></i></a></li>
+            <li class="sns"><a :href="facebook"><i class="fab fa-facebook"></i></a></li>
+            <li class="sns"><a :href="instagram"><i class="fab fa-instagram"></i></a></li>
           </ul>
         </ul>
       </div>
@@ -31,7 +31,10 @@
 export default {
   data(){
     return{
-      isActive: false
+      twitter: 'https://twitter.com/UBER10191097',
+      facebook: 'https://www.facebook.com/yamazoe.kensaku',
+      instagram: 'https://www.instagram.com/yamazoe88/',
+      isActive: false,
     }
   }
 }
@@ -127,8 +130,6 @@ export default {
     display: block;
     transition: .5s;
   }
-
-
   #abotor{
     height: 210px;
     width: 210px;
@@ -150,6 +151,9 @@ export default {
   #social{
     display: none;
   }
+  #social a{
+    color: white;
+  }
   #social.active{
     display: block;
     position: absolute;
@@ -163,5 +167,4 @@ export default {
     margin: 0 20px;
     cursor: pointer;
   }
-  
 </style>
