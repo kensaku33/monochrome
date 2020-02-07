@@ -10,17 +10,70 @@
 
       <div id="about" v-bind:class='{active:isActive}'>
         <div id="abotor"></div>
-        <ul id="menu">
-          <li class="list">profile</li>
-          <li class="list">works</li>
-          <li class="list">skills</li>
-          <li class="list">contact</li>
+
+        <transition name="left">
+          <div class="profile-box" v-if="profile">
+            <h3 class="profile-title">profile</h3>
+            <p>ヤマゾエケンサク</p>
+            <br>
+            <p>徳島県出身</p><br>
+            <span class="profile-inner">
+              <p>スノーボードとか釣りとか<br>アウトドアなものが好き。</p>
+              <p>海外で旅していた時に<br>友人からもらった写真に感銘を受けて写真を始める。</p>
+            </span>
+            <span class="close" @click="profile=!profile">close</span>
+          </div>
+        </transition>
+
+        <transition name="left">
+          <div class="works-box" v-if="works">
+            <h3 class="works-title">works</h3>
+            <p>写真撮影を中心にいろいろやってます</p>
+            <p>写真を扱った制作物が得意です</p>
+            <br>
+            <span class="works-inner">
+              <p>写真 / 動画撮影</p>
+              <p>写真 / 動画編集</p>
+              <p>広告、ポスター作成</p>
+            </span>
+            <span class="close" @click="works=!works">close</span>
+          </div>
+        </transition>
+
+        <transition name="left">
+          <div class="skills-box" v-if="skills">
+            <h3 class="skills-title">skills</h3>
+            <!-- <br> -->
+            <span class="skills-inner">
+              <p>ツール</p>
+              <p>illustrator / photoshop</p>
+              <p>premiere / lightroom</p>
+              <p>XD</p>
+              <br>
+              <p>エンジニアスキル</p>
+              <p>HTML / CSS</p>
+              <p>jQuery / vue.js</p>
+              <p>Ruby on Rails</p>
+              <p>Git / AWS</p>
+            </span>
+            <span class="close" @click="skills=!skills">close</span>
+          </div>
+        </transition>
+
+        <transition name="right">
+          <ul id="menu" v-if="!profile && !works && !skills">
+            <li class="list" id="profile" @click="profile=!profile">profile</li>
+            <li class="list" id="works" @click="works=!works">works</li>
+            <li class="list" id="skills" @click="skills=!skills">skills</li>
+            <!-- <li class="list" id="contact">contact</li> -->
+          </ul>
+        </transition>
+
           <ul id="social" v-bind:class='{active:isActive}'>
             <li class="sns"><a :href="twitter"><i class="fab fa-twitter"></i></a></li>
             <li class="sns"><a :href="facebook"><i class="fab fa-facebook"></i></a></li>
             <li class="sns"><a :href="instagram"><i class="fab fa-instagram"></i></a></li>
           </ul>
-        </ul>
       </div>
 
     </div>
@@ -35,14 +88,59 @@ export default {
       facebook: 'https://www.facebook.com/yamazoe.kensaku',
       instagram: 'https://www.instagram.com/yamazoe88/',
       isActive: false,
+      profile: false,
+      works: false,
+      skills: false,
     }
-  }
+  },
 }
 </script>
 
 
 
 <style scoped>
+.right-enter-active{
+  animation: right-in 1s;
+}
+.right-leave-active{
+  animation: right-in 0.5s reverse;
+}
+@keyframes right-in {
+  0%{
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  30%{
+    opacity: 0;
+    transform: translateX(160px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.left-enter-active{
+  animation: left-in 1s;
+}
+.left-leave-active{
+  animation: left-in 0.5s reverse;
+}
+@keyframes left-in {
+  0%{
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  30%{
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
   li{
     list-style: none;
   }
@@ -62,6 +160,27 @@ export default {
     background-color: rgba(0, 0, 0, 0.564);
     text-align: right;
     transition: .5s;
+  }
+  .profile-box,
+  .works-box,
+  .skills-box{
+    position: absolute;
+    width: 26vw;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.8rem;
+    right: 0;
+    left: 0;
+    margin: auto;
+    color: white;
+    font-weight: 100;
+  }
+  .profile-title,
+  .works-title,
+  .skills-title{
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin: 50px 0; 
   }
   /* ------------------------------------------------------バンバーガー部分 */
   .menu-trigger,
@@ -140,14 +259,29 @@ export default {
   #menu{
     color: white;
     font-size: 1.4rem;
-    margin: 100px 100px 0 0;
+    padding: 100px 100px 0 0;
+    position: relative;
+    right: 3%;
+    overflow: hidden;
+    position: absolute;
+    top: 300px;
+  }
+  #menu.none{
+    transition: .5s;
+    margin-right: -300px;
+    /* display: none; */
   }
   .list{
-    margin-bottom: 30px;
+    /* position: absolute; */
+    margin: 0px 0 30px 0;
     cursor: pointer;
     padding-bottom: 2px;
+    transition: .5s;
+    /* right: 30px; */
   }
-
+  .list:hover{
+    opacity: .5;
+  }
   #social{
     display: none;
   }
@@ -165,6 +299,20 @@ export default {
     font-size: 1.6rem;
     display: inline-block;
     margin: 0 20px;
+    cursor: pointer;
+    transition: .5s;
+  }
+  #social.active > *:hover{
+    opacity: .5;
+  }
+  .close{
+    position: absolute;
+    font-size: 1rem;
+    border-bottom: 1px solid white;
+    left: 0;
+    right: 0;
+    bottom: -60px;
+    margin: auto;
     cursor: pointer;
   }
 </style>
