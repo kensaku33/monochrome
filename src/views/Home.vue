@@ -1,10 +1,21 @@
 <template>
   <div class="home">
+
     <LandScape></LandScape>
     <SideHeader2></SideHeader2>
-    <CLandScape></CLandScape>
-    <CPortlate></CPortlate>
-    <CSnap></CSnap>
+
+    <transition name="bottom" appear>
+      <CLandScape></CLandScape>
+    </transition>
+
+    <transition name="bottom" appear>
+      <CPortlate></CPortlate>
+    </transition>
+
+    <transition name="bottom" appear>
+      <CSnap></CSnap>
+    </transition>
+
   </div>
 </template>
 
@@ -29,3 +40,22 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .bottom-enter-active{
+    animation: bottom 1s;
+  }
+  .bottom-leave-active{
+    animation: bottom 1s reverse;
+  }
+  @keyframes bottom{
+    0%{
+      opacity: 0;
+      transform: translateY(300px);
+    }
+    100%{
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+</style>
