@@ -5,15 +5,21 @@
     <SideHeader2></SideHeader2>
 
     <transition name="bottom" appear>
-      <CLandScape></CLandScape>
+      <CLandScape>
+        <router-link to="/landscape"></router-link>
+      </CLandScape>
     </transition>
 
     <transition name="bottom" appear>
-      <CPortlate></CPortlate>
+      <CPortlate>
+        <router-link to="/portlate"></router-link>
+      </CPortlate>
     </transition>
 
     <transition name="bottom" appear>
-      <CSnap></CSnap>
+      <CSnap>
+        <router-link to="/snap"></router-link>
+      </CSnap>
     </transition>
 
   </div>
